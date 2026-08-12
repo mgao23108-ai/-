@@ -1,0 +1,50 @@
+name: 每日新闻热点推送
+
+on:
+  schedule:
+    # 每天 08:00 北京时间 = 00:00 UTC（中国无夏令时）
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-news
+  cancel-in-progress: false
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 抓取新闻
+        run: python src/fetch.py --out data/raw.json
+
+      - name: 生成摘要
+        run: python src/summarize.py --in data/raw.json --out data/digest.md
+        env:
+          LLM_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+
+      - name: 推送到微信（PushPlus）
+        run: python src/send.py --in data/digest.md
+        env:
+          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+
+      - name: 上传摘要供检查
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: digest
+          path: data/digest.md
+          retention-days: 7

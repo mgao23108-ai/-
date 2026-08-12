@@ -1,0 +1,2 @@
+# 本项目仅使用 Python 标准库（urllib / xml / json / datetime），无需安装任何第三方依赖。
+# GitHub Actions 使用 ubuntu-latest 自带 Python 3.12，可直接运行。

@@ -1,0 +1,103 @@
+{
+  "items_per_section": 5,
+  "raw_per_section": 12,
+  "sources": [
+    {
+      "name": "新浪滚动",
+      "type": "sina_roll",
+      "url": "https://feed.mix.sina.com.cn/api/roll/get?pageid=153&lid=2516&k=&num=50&page=1"
+    },
+    {
+      "name": "东方财富快讯",
+      "type": "eastmoney",
+      "url": "https://newsapi.eastmoney.com/kuaixun/v1/getlist_102_ajaxResult_50_1_.html"
+    },
+    {
+      "name": "IT之家",
+      "type": "rss",
+      "url": "https://www.ithome.com/rss/"
+    },
+    {
+      "name": "Retail Dive",
+      "type": "rss",
+      "url": "https://www.retaildive.com/feeds/news/"
+    },
+    {
+      "name": "TechCrunch",
+      "type": "rss",
+      "url": "https://techcrunch.com/feed/"
+    },
+    {
+      "name": "CNBC Indonesia",
+      "type": "rss",
+      "url": "https://www.cnbcindonesia.com/rss/"
+    },
+    {
+      "name": "BBC 中东",
+      "type": "rss",
+      "url": "https://feeds.bbci.co.uk/news/world/middle_east/rss.xml"
+    },
+    {
+      "name": "半岛电视台",
+      "type": "rss",
+      "url": "https://www.aljazeera.com/xml/rss/all.xml"
+    }
+  ],
+  "sections": {
+    "国内新消费": {
+      "keywords": ["消费", "零售", "品牌", "电商", "咖啡", "奶茶", "美妆", "国货", "新消费", "餐饮", "食品", "连锁", "预制菜", "直播", "门店", "出海", "零食", "饮料", "服饰", "家居", "母婴", "宠物"],
+      "sources": ["新浪滚动", "东方财富快讯", "IT之家"]
+    },
+    "国际新消费": {
+      "keywords": ["retail", "consumer", "brand", "e-commerce", "ecommerce", "beauty", "fashion", "food", "restaurant", "coffee", "store", "shopping", "delivery", "luxury", "startup"],
+      "sources": ["Retail Dive", "TechCrunch"]
+    },
+    "国内科技": {
+      "keywords": ["科技", "AI", "人工智能", "大模型", "芯片", "半导体", "手机", "互联网", "软件", "机器人", "智能", "新能源", "自动驾驶", "5G", "华为", "小米", "腾讯", "阿里", "字节", "百度", "网易", "京东", "美团", "鸿蒙", "算力", "开源", "量子", "操作系统"],
+      "sources": ["IT之家", "新浪滚动"]
+    },
+    "国际科技": {
+      "keywords": [],
+      "sources": ["TechCrunch"]
+    },
+    "中国股市": {
+      "keywords": [],
+      "sources": ["东方财富快讯", "新浪滚动"]
+    },
+    "印尼股市": {
+      "keywords": ["saham", "ihsg", "bursa", "emiten", "rupiah", "kurs", "inflasi", "ekonomi", "bank", "investasi", "pasar modal", "laba", "dividen", "ipo"],
+      "sources": ["CNBC Indonesia"]
+    },
+    "中东局势": {
+      "keywords": [],
+      "sources": ["BBC 中东", "半岛电视台"]
+    }
+  },
+  "indices": {
+    "中国股市": {
+      "utc_offset_hours": 8,
+      "trading_hours": [["09:30", "11:30"], ["13:00", "15:00"]],
+      "sina": ["sh000001", "sz399001", "sz399006"],
+      "labels": {
+        "sh000001": "上证指数",
+        "sz399001": "深证成指",
+        "sz399006": "创业板指"
+      },
+      "yahoo_fallback": {
+        "000001.SS": "上证指数",
+        "399001.SZ": "深证成指",
+        "399006.SZ": "创业板指"
+      }
+    },
+    "印尼股市": {
+      "utc_offset_hours": 7,
+      "trading_hours": [["09:00", "12:00"], ["13:30", "15:50"]],
+      "yahoo": [
+        {
+          "symbol": "^JKSE",
+          "label": "雅加达综合指数 (IHSG)"
+        }
+      ]
+    }
+  }
+}
