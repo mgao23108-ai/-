@@ -11,7 +11,7 @@
 | 国内科技 | IT之家、新浪滚动 |
 | 国际科技 | TechCrunch |
 | 中国股市 | 东方财富快讯 + 上证/深证/创业板指数行情 |
-| 印尼股市 | CNBC Indonesia + 雅加达综合指数（IHSG，Yahoo Finance） |
+| 印尼股市 | Google News（印尼市场）、CNBC Indonesia + 雅加达综合指数（IHSG，Yahoo Finance） |
 | 中东局势 | BBC Middle East、半岛电视台 |
 
 每个新闻板块默认 5 条，每条带原文链接；股市板块附指数最新收盘与涨跌幅；周末/节假日显示最近收盘并注明「休市」。

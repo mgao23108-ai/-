@@ -33,6 +33,11 @@
       "url": "https://www.cnbcindonesia.com/rss/"
     },
     {
+      "name": "Google News 印尼",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=IHSG%20OR%20BEI%20OR%20%22pasar%20saham%22&hl=id&gl=ID&ceid=ID:id"
+    },
+    {
       "name": "BBC 中东",
       "type": "rss",
       "url": "https://feeds.bbci.co.uk/news/world/middle_east/rss.xml"
@@ -66,7 +71,7 @@
     },
     "印尼股市": {
       "keywords": ["saham", "ihsg", "bursa", "emiten", "rupiah", "kurs", "inflasi", "ekonomi", "bank", "investasi", "pasar modal", "laba", "dividen", "ipo"],
-      "sources": ["CNBC Indonesia"]
+      "sources": ["Google News 印尼", "CNBC Indonesia"]
     },
     "中东局势": {
       "keywords": [],
