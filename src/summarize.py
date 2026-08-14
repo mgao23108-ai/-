@@ -61,8 +61,13 @@ def build_prompt(data):
     lines.append("JSON 格式：")
     lines.append('{"板块名": [{"title": "原文标题", "summary": "中文摘要"}], ...}')
     lines.append("")
+    section_hours = data.get("section_hours") or {}
     for sec, items in data.get("sections", {}).items():
-        lines.append("## " + sec)
+        w = section_hours.get(sec)
+        if w and float(w) != float(data.get("hours", 24)):
+            lines.append("## " + sec + "（窗口：近{0}天）".format(int(w) // 24))
+        else:
+            lines.append("## " + sec)
         if not items:
             lines.append("（无候选）")
             continue
@@ -136,8 +141,12 @@ def render(data, ai_by_section, ai_used):
     else:
         md.append("> 过去 {0} 小时国内外热点精选（纯标题模式：未配置 LLM Key 或 AI 摘要失败）".format(fmt_hours(data.get("hours"))))
     md.append("")
+    section_hours = data.get("section_hours") or {}
     for sec, items in data.get("sections", {}).items():
         md.append("## " + sec)
+        w = section_hours.get(sec)
+        if w and float(w) != float(data.get("hours", 24)):
+            md.append("> （本板块窗口：近 {0} 天）".format(int(w) // 24))
         q = (data.get("quotes") or {}).get(sec)
         if q is not None:
             if q.get("lines"):

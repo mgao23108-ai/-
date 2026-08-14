@@ -257,26 +257,36 @@ def get_quotes(cfg):
     return quotes
 
 
+def collect_section_items(sec, cache, now, cutoff):
+    keywords = [k.lower() for k in (sec.get("keywords") or [])]
+    seen = {}
+    for src_name in sec.get("sources") or []:
+        for it in cache.get(src_name, []):
+            if it["time"] < cutoff or it["time"] > now + timedelta(hours=2):
+                continue
+            if keywords:
+                hay = (it["title"] + " " + (it["summary"] or "")).lower()
+                if not any(k in hay for k in keywords):
+                    continue
+            key = norm_title(it["title"])
+            if key not in seen or it["time"] > seen[key]["time"]:
+                seen[key] = it
+    return sorted(seen.values(), key=lambda x: x["time"], reverse=True)
+
+
 def build_sections(cfg, cache, hours):
     now = datetime.now(timezone.utc)
-    cutoff = now - timedelta(hours=hours)
     raw_per = int(cfg.get("raw_per_section", 12))
     sections = {}
+    section_hours = {}
     for sec_name, sec in (cfg.get("sections") or {}).items():
-        keywords = [k.lower() for k in (sec.get("keywords") or [])]
-        seen = {}
-        for src_name in sec.get("sources") or []:
-            for it in cache.get(src_name, []):
-                if it["time"] < cutoff or it["time"] > now + timedelta(hours=2):
-                    continue
-                if keywords:
-                    hay = (it["title"] + " " + (it["summary"] or "")).lower()
-                    if not any(k in hay for k in keywords):
-                        continue
-                key = norm_title(it["title"])
-                if key not in seen or it["time"] > seen[key]["time"]:
-                    seen[key] = it
-        lst = sorted(seen.values(), key=lambda x: x["time"], reverse=True)
+        sec_hours = float(sec.get("hours", hours))
+        lst = collect_section_items(sec, cache, now, now - timedelta(hours=sec_hours))
+        eff = sec_hours
+        if not lst and sec.get("fallback_hours"):
+            eff = float(sec["fallback_hours"])
+            lst = collect_section_items(sec, cache, now, now - timedelta(hours=eff))
+        section_hours[sec_name] = eff
         sections[sec_name] = [
             {
                 "title": it["title"],
@@ -287,7 +297,7 @@ def build_sections(cfg, cache, hours):
             }
             for it in lst[:raw_per]
         ]
-    return sections
+    return sections, section_hours
 
 
 def fetch_source(source, cache):
@@ -321,7 +331,7 @@ def main():
     for src in cfg.get("sources") or []:
         fetch_source(src, cache)
 
-    sections = build_sections(cfg, cache, args.hours)
+    sections, section_hours = build_sections(cfg, cache, args.hours)
     quotes = get_quotes(cfg)
 
     now = datetime.now(BEIJING)
@@ -330,6 +340,7 @@ def main():
         "date_label": "{0}月{1}日".format(now.month, now.day),
         "items_per_section": int(cfg.get("items_per_section", 5)),
         "hours": args.hours,
+        "section_hours": section_hours,
         "sections": sections,
         "quotes": quotes,
     }

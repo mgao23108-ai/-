@@ -38,6 +38,26 @@
       "url": "https://news.google.com/rss/search?q=IHSG%20OR%20BEI%20OR%20%22pasar%20saham%22&hl=id&gl=ID&ceid=ID:id"
     },
     {
+      "name": "Google News 印尼政治",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=politik%20Indonesia&hl=id&gl=ID&ceid=ID:id"
+    },
+    {
+      "name": "Google News 印尼政治(英)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=Indonesia%20politics&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+      "name": "Google News 沥青(英)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=asphalt&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+      "name": "Google News 沥青(英2)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=bitumen&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
       "name": "BBC 中东",
       "type": "rss",
       "url": "https://feeds.bbci.co.uk/news/world/middle_east/rss.xml"
@@ -73,9 +93,19 @@
       "keywords": ["saham", "ihsg", "bursa", "emiten", "rupiah", "kurs", "inflasi", "ekonomi", "bank", "investasi", "pasar modal", "laba", "dividen", "ipo"],
       "sources": ["Google News 印尼", "CNBC Indonesia"]
     },
+    "印尼政治": {
+      "keywords": [],
+      "sources": ["Google News 印尼政治", "Google News 印尼政治(英)"]
+    },
     "中东局势": {
       "keywords": [],
       "sources": ["BBC 中东", "半岛电视台"]
+    },
+    "沥青搅拌站市场情况": {
+      "hours": 24,
+      "fallback_hours": 168,
+      "keywords": ["沥青", "asphalt", "bitumen", "mixing plant", "aggregate", "paving", "recycl", "plant", "market", "road", "highway", "construction"],
+      "sources": ["Google News 沥青(英)", "Google News 沥青(英2)", "东方财富快讯", "新浪滚动"]
     }
   },
   "indices": {
