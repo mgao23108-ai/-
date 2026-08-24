@@ -6,6 +6,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -32,15 +33,24 @@ def log(msg):
     print("[fetch] " + msg, flush=True)
 
 
-def http_get(url, referer=None, timeout=20):
+def http_get(url, referer=None, timeout=20, tries=3):
     headers = {"User-Agent": UA}
     if referer:
         headers["Referer"] = referer
     req = urllib.request.Request(url, headers=headers)
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        raw = resp.read()
-        charset = resp.headers.get_content_charset()
-        return raw.decode(charset or "utf-8", "ignore")
+    last_err = None
+    for attempt in range(tries):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                raw = resp.read()
+                charset = resp.headers.get_content_charset()
+                return raw.decode(charset or "utf-8", "ignore")
+        except Exception as e:
+            last_err = e
+            if attempt < tries - 1:
+                log("请求重试({0}/3)：{1}".format(attempt + 2, e))
+                time.sleep(1.5 * (attempt + 1))
+    raise last_err
 
 
 def strip_tags(html):

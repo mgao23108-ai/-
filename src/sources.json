@@ -48,6 +48,21 @@
       "url": "https://news.google.com/rss/search?q=Indonesia%20politics&hl=en-US&gl=US&ceid=US:en"
     },
     {
+      "name": "Google News 印尼道路(1)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=konstruksi%20jalan&hl=id&gl=ID&ceid=ID:id"
+    },
+    {
+      "name": "Google News 印尼道路(2)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=aspal%20Indonesia&hl=id&gl=ID&ceid=ID:id"
+    },
+    {
+      "name": "Google News 印尼道路(3)",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=jalan%20tol&hl=id&gl=ID&ceid=ID:id"
+    },
+    {
       "name": "Google News 沥青(英)",
       "type": "rss",
       "url": "https://news.google.com/rss/search?q=asphalt&hl=en-US&gl=US&ceid=US:en"
@@ -96,6 +111,12 @@
     "印尼政治": {
       "keywords": [],
       "sources": ["Google News 印尼政治", "Google News 印尼政治(英)"]
+    },
+    "印尼道路全产业链": {
+      "hours": 24,
+      "fallback_hours": 168,
+      "keywords": ["jalan", "aspal", "tol", "konstruksi", "semen", "agregat", "material", "alat berat", "proyek", "pembangunan", "jembatan", "infrastruktur", "tambang", "cor", "paving", "hotmix", "batching", "amp", "toll", "road", "highway", "cement", "asphalt", "aggregate"],
+      "sources": ["Google News 印尼道路(1)", "Google News 印尼道路(2)", "Google News 印尼道路(3)"]
     },
     "中东局势": {
       "keywords": [],

@@ -14,6 +14,7 @@
 | 印尼股市 | Google News（印尼市场）、CNBC Indonesia + 雅加达综合指数（IHSG，Yahoo Finance） |
 | 中东局势 | BBC Middle East、半岛电视台 |
 | 印尼政治 | Google News（politik Indonesia / Indonesia politics） |
+| 印尼道路全产业链 | Google News（konstruksi jalan / aspal / jalan tol，覆盖原材料与施工设备） |
 | 沥青搅拌站市场情况 | Google News（asphalt mixing plant / market）+ 东方财富、新浪「沥青」关键词 |
 
 每个新闻板块默认 5 条，每条带原文链接；股市板块附指数最新收盘与涨跌幅；周末/节假日显示最近收盘并注明「休市」。
