@@ -1,6 +1,6 @@
 {
   "items_per_section": 5,
-  "raw_per_section": 12,
+  "raw_per_section": 8,
   "sources": [
     {
       "name": "新浪滚动",
@@ -89,6 +89,8 @@
       "sources": ["新浪滚动", "东方财富快讯", "IT之家"]
     },
     "国际新消费": {
+      "hours": 24,
+      "fallback_hours": 168,
       "keywords": ["retail", "consumer", "brand", "e-commerce", "ecommerce", "beauty", "fashion", "food", "restaurant", "coffee", "store", "shopping", "delivery", "luxury", "startup"],
       "sources": ["Retail Dive", "TechCrunch"]
     },

@@ -58,6 +58,7 @@ def build_prompt(data):
     lines.append("1. 标题必须与候选中的标题逐字一致，不得改写、不得编造，不得添加候选之外的条目；")
     lines.append("2. 摘要用简体中文写 1-2 句，点出这条新闻的核心看点；")
     lines.append("3. 只输出一个合法 JSON 对象，不要输出任何其他文字、注释或 Markdown。")
+    lines.append("4. 必须为下方列出的每一个板块都返回一个数组；某板块没有合适条目时返回空数组，严禁遗漏任何板块；每个板块最多 {0} 条。".format(n))
     lines.append("JSON 格式：")
     lines.append('{"板块名": [{"title": "原文标题", "summary": "中文摘要"}], ...}')
     lines.append("")
@@ -101,7 +102,7 @@ def call_llm(prompt, api_key, base_url, model):
         "model": model or DEFAULT_MODEL,
         "messages": messages,
         "temperature": 0.3,
-        "max_tokens": 6000,
+        "max_tokens": 8000,
     }
     last_err = None
     for use_json_mode in (True, False):
@@ -165,12 +166,22 @@ def render(data, ai_by_section, ai_used):
             for x in ai_by_section.get(sec) or []:
                 if isinstance(x, dict) and x.get("title"):
                     ai_map[norm_title(x["title"])] = (x.get("summary") or "").strip()
+
+        def find_ai(key):
+            if key in ai_map:
+                return ai_map[key]
+            for k, v in ai_map.items():
+                if key and (k in key or key in k):
+                    return v
+            return None
+
         entries = []
         used = set()
         for it in items:
             key = norm_title(it.get("title", ""))
-            if key in ai_map and key not in used:
-                entries.append((it, ai_map[key]))
+            s = find_ai(key)
+            if s is not None and key not in used:
+                entries.append((it, s))
                 used.add(key)
         for it in items:
             if len(entries) >= n:
